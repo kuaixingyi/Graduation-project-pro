@@ -1,0 +1,24 @@
+spring:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/blog?useUnicode=true&serverTimezone=UTC
+      username: root
+      password: 123456
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+      database-platform: org.hibernate.dialect.MySQL5Dialect
+#  artemis:
+#    port: 8888
+#日志
+#logging:
+#  level:
+#    root: INFO
+#    com.kxy: DEGUG
+#    fiel: log/blog-dev.log
+
+
+
+
+
