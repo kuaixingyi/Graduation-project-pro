@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="_fragments :: head(~{::title})">
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
     <meta name="viewport" charset="width=decice-width,initial-scale=1.8">
+    <title th:replace="${title}">消息</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="../static/css/animate.css">
-    <link rel="stylesheet" href="../../static/css/min.css">
-    <title>500</title>
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../static/css/animate.css"  th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../static/css/min.css" th:href="@{/css/min.css}">
+
 </head>
 <body>
+
 <!--导航-->
-<nav  th:replace="_fragments :: menu(0)" class="ui  inverted attached segment m-padded-tb-min1 m-shadow-small" >
+<nav  th:fragment="menu(n)"  class="ui  inverted attached segment m-padded-tb-min1 m-shadow-small" >
     <div class="ui container" >
         <div class="ui  inverted stackable menu">
             <h2 class="ui green  header item">西林帮帮酱</h2>
-            <a href="#" class=" m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="folder open outline icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
-            <a href="#" class=" m-item item m-mobile-hide"><i class="info icon"></i>关于帮帮酱</a>
-            <div class="right  m-item item m-mobile-hide">
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="folder open outline icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>归档</a>
+            <a href="#" class=" m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于帮帮酱</a>
+            <div class="right  m-item item m-mobile-hide" >
                 <div class="ui icon input">
                     <input type="text" placeholder="请输入搜索内容....">
                     <i class="search link icon"></i>
@@ -33,34 +38,14 @@
     </a>
 
 </nav>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-<div class="m-container-small m-padded-tb-massive">
-    <div class="ui error message m-padded-tb-massive" >
-        <div class="ui contianer">
-            <h2>500</h2>
-            <p>抱歉！好像服务器开了点小差！！！！！！！！</p>
-        </div>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-mix">
+<!--底部-->
+<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-mix">
     <div class="ui center aligned container">
         <div class="ui inverted divided  stackable grid">
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img src="../../static/images/m1.jpg"  th:src="@{/images/m1.jpg}" alt="" class="ui rounded image" >
+                        <img src="../static/images/m1.jpg"  th:src="@{/images/m1.jpg}" alt="" class="ui rounded image" >
                     </div>
                 </div>
             </div>
@@ -95,5 +80,16 @@
     </div>
 
 </footer>
+
+<th:block th:fragment="script">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+</th:block>>
+
 </body>
 </html>

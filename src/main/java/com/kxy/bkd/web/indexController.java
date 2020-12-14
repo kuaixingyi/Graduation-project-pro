@@ -19,5 +19,15 @@ public class indexController {
 //        }
         return "index.HTML";
     }
+
+    @GetMapping("/blog")
+    public String blog(){
+//        int i = 9/0;
+//        String bolg = null;
+//        if(bolg == null){
+//            throw  new NotFiundException("消息不存在");
+//        }
+        return "blog";
+    }
 }
 
