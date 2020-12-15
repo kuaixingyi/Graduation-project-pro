@@ -11,7 +11,7 @@ public class Type {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
     private String  name;
 
@@ -53,4 +53,6 @@ public class Type {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+
 }

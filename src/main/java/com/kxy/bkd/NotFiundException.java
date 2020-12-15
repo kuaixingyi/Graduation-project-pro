@@ -3,6 +3,7 @@ package com.kxy.bkd;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+//异常处理
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class NotFiundException extends RuntimeException{
     public NotFiundException() {

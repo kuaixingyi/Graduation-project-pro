@@ -8,7 +8,7 @@ import java.util.List;
 //@Table(name = "T_tag")
 public class Tag {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 

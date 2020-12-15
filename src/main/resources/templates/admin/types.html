@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" charset="width=decice-width,initial-scale=1.8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/animate.css">
     <link rel="stylesheet" href="../../static/css/min.css">
-    <title>后台管理</title>
+    <title>分类管理</title>
 </head>
 <body>
 <!--导航-->
-<nav class="ui  inverted attached segment m-padded-tb-min1 m-shadow-small">
+<nav th:replace="admin/_fragments :: menu(2)" class="ui  inverted attached segment m-padded-tb-min1 m-shadow-small">
     <div class="ui container">
         <div class="ui  inverted stackable menu">
             <h2 class="ui green  header item">后台管理</h2>
@@ -53,65 +53,34 @@
 <div class=" animate__animated animate__bounce m-container-small m-padded-tb-large">
 
     <div class="ui container">
-        <form action="#" method="post" class="ui segment form">
-            <div class="inline fields">
-                <div class="field">
-                    <input type="text" class="" name="title" placeholder="标题">
-                </div>
-                <div class="field">
-                    <div class="ui selection dropdown">
-                        <input type="hidden" class="" name="type">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">分类</div>
-                        <div class="menu">
-                            <div class="item" data-value="1">失物招领</div>
-                            <div class="item" data-value="2">感情话题</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input type="checkbox" name="recommend" id="recommend">
-                        <label for="recommend">推荐</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <button class="ui mini green button"><i class="search icon"></i>搜索</button>
-                </div>
-            </div>
-        </form>
+
         <table class="ui celled table">
             <thead class="">
             <tr>
                 <th></th>
-                <th>标题</th>
-                <th>类型</th>
-                <th>推荐</th>
-                <th>更新时间</th>
+                <th>名称</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <td>1</td>
-            <td>马海旭在线求偶！</td>
-            <td>感情话题</td>
-            <td>是</td>
-            <td>2020-12-2 09:23</td>
+            <tr th:each="type,iterStat : ${page.content}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${type.name}">马海旭在线求偶！</td>
             <td>
-                <a href="" class="ui mini green button">编辑</a>
-                <a href="" class="ui mini red button">删除</a>
-
+                <a href="" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui mini green button">编辑</a>
+                <a href="" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red button">删除</a>
+            </tr>
             </td>
             </tbody>
             <tfoot>
             <tr>
                 <th colspan="6">
                     <div class="ui  mini pagination menu">
-                        <a class=" item">上一页</a>
-                        <a class=" item">下一页</a>
+                        <a th:href="@{/admin/types(page=${page.number}-1)}" class=" item" th:unless="${page.first}">上一页</a>
+                        <a th:href="@{/admin/types(page=${page.number}+1)}"  class=" item" th:unless="${page.last}">下一页</a>
                     </div>
 
-                    <a href="" class="ui mini right floated green button">新增</a>
+                    <a href="" th:href="@{/admin/types/input}" class="ui mini right floated green button">新增</a>
                 </th>
             </tr>
             </tfoot>
@@ -134,7 +103,7 @@
 
 
 <!--底部-->
-<footer class="ui inverted vertical segment m-padded-tb-mix">
+<footer th:replace="admin/_fragments :: footer"  class="ui inverted vertical segment m-padded-tb-mix">
     <div class="ui center aligned container">
         <div class="ui inverted divided  stackable grid">
             <div class="three wide column">
@@ -175,8 +144,13 @@
     </div>
 
 </footer>
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+
 <script>
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');

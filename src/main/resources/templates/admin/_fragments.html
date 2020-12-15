@@ -19,17 +19,17 @@
     <div class="ui container">
         <div class="ui  inverted stackable menu">
             <h2 class="ui green  header item">后台管理</h2>
-            <a href="#" class=" m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
-            <a href="#" class=" m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="folder open outline icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+            <a href="#" th:href="@{/admin/admins}" class=" m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+            <a href="#" th:href="@{/admin/types}" class=" m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="folder open outline icon"></i>分类</a>
+            <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
             <div class="right m-mobile-hide  m-item menu">
-                <div class="ui dropdown   item">
+                <div class="ui dropdown  item">
                     <div class="text">
                         <img src="https://picsum.photos/id/3/100/100" alt="" class="ui avatar image">
                         帮帮酱
                     </div>
                     <i class="dropdown icon"></i>
-                    <div class="menu">
+                    <div class="menu">x`
                         <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
                     </div>
 

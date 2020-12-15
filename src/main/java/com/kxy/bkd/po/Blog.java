@@ -8,7 +8,7 @@ import java.util.List;
 @Entity(name = "T_blog")
 public class Blog {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     private String content;
