@@ -1,4 +1,4 @@
-package com.kxy.bkd.web;
+package com.kxy.bkd.web.admin;
 
 
 import com.kxy.bkd.po.Type;

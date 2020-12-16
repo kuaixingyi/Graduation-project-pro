@@ -1,6 +1,7 @@
 package com.kxy.bkd.po;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //    后端空值校验
+    @NotBlank(message = "分类名称不能为空")
     private String name;
 
 //    多对多

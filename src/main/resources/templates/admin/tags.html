@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/animate.css">
     <link rel="stylesheet" href="../../static/css/min.css">
-    <title>分类管理</title>
+    <title>标签管理</title>
 </head>
 <body>
 <!--导航-->
-<nav th:replace="admin/_fragments :: menu(2)" class="ui  inverted attached segment m-padded-tb-min1 m-shadow-small">
+<nav th:replace="admin/_fragments :: menu(3)" class="ui  inverted attached segment m-padded-tb-min1 m-shadow-small">
     <div class="ui container">
         <div class="ui  inverted stackable menu">
             <h2 class="ui green  header item">后台管理</h2>
@@ -21,7 +21,7 @@
                 <div class="ui dropdown   item">
                     <div class="text">
                         <img src="https://picsum.photos/id/3/100/100" alt="" class="ui avatar image">
-
+                        帮帮酱
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
@@ -43,8 +43,8 @@
 <div class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
-            <a href="#" th:href="@{/admin/types/input}" class="item">新增</a>
-            <a href="#" th:href="@{/admin/types}" class=" green active item">列表</a>
+            <a href="#" th:href="@{/admin/tags/input}" class="item">新增</a>
+            <a href="#" th:href="@{/admin/tags}" class=" green active item">列表</a>
         </div>
     </div>
 
@@ -70,12 +70,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="type,iterStat : ${page.content}">
+            <tr th:each="tags,iterStat : ${page.content}">
             <td th:text="${iterStat.count}">1</td>
-            <td th:text="${type.name}">马海旭在线求偶！</td>
+            <td th:text="${tags.name}">马海旭在线求偶！</td>
             <td>
-                <a href="" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui mini green button">编辑</a>
-                <a href="" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red button">删除</a>
+                <a href="" th:href="@{/admin/tags/{id}/input(id=${tags.id})}" class="ui mini green button">编辑</a>
+                <a href="" th:href="@{/admin/tags/{id}/delete(id=${tags.id})}" class="ui mini red button">删除</a>
             </tr>
             </td>
             </tbody>
@@ -83,11 +83,11 @@
             <tr>
                 <th colspan="6" >
                     <div class="ui  mini pagination menu" th:if="${page.totalPages}>1">
-                        <a th:href="@{/admin/types(page=${page.number}-1)}" class=" item" th:unless="${page.first}">上一页</a>
-                        <a th:href="@{/admin/types(page=${page.number}+1)}"  class=" item" th:unless="${page.last}">下一页</a>
+                        <a th:href="@{/admin/tags(page=${page.number}-1)}" class=" item" th:unless="${page.first}">上一页</a>
+                        <a th:href="@{/admin/tags(page=${page.number}+1)}"  class=" item" th:unless="${page.last}">下一页</a>
                     </div>
 
-                    <a href="" th:href="@{/admin/types/input}" class="ui mini right floated green button">新增</a>
+                    <a href="" th:href="@{/admin/tags/input}" class="ui mini right floated green button">新增</a>
                 </th>
             </tr>
             </tfoot>

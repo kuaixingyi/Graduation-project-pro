@@ -53,7 +53,8 @@
 <div class=" animate__animated animate__bounce m-container-small m-padded-tb-large">
 
     <div class="ui container">
-        <form action="#" method="post" class="ui segment form">
+        <form action="#" method="post" class="ui secondary segment form">
+            <input type="hidden" name="page">
             <div class="inline fields">
                 <div class="field">
                     <input type="text" class="" name="title" placeholder="标题">
@@ -82,7 +83,7 @@
         </form>
         <table class="ui celled table">
             <thead class="">
-            <tr>
+            <tr class="m-container" >
                 <th></th>
                 <th>标题</th>
                 <th>类型</th>
@@ -92,23 +93,26 @@
             </tr>
             </thead>
             <tbody>
-            <td>1</td>
-            <td>马海旭在线求偶！</td>
-            <td>感情话题</td>
-            <td>是</td>
-            <td>2020-12-2 09:23</td>
-            <td>
-                <a href="" class="ui mini green button">编辑</a>
-                <a href="" class="ui mini red button">删除</a>
+            <tr th:each="blog,iterStat : ${page.content}" >
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${blog.title}">马海旭在线求偶！</td>
+                <td th:text="${blog.type.name}">感情话题</td>
+                <td th:text="${blog.recommend} ? '是':'否'">是</td>
+                <td th:text="${blog.updateTime}">2020-12-2 09:23</td>
+                <td>
+                    <a href="" th:href="@{/admin/admins/{id}/input(id=${blog.id})}" class="ui mini green button">编辑</a>
+                    <a href="" th:href="@{/admin/admins/{id}/delete(id=${blog.id})}" class="ui mini red button">删除</a>
 
-            </td>
+                </td>
+            </tr>
+
             </tbody>
             <tfoot>
             <tr>
                 <th colspan="6">
                     <div class="ui  mini pagination menu">
-                        <a class=" item">上一页</a>
-                        <a class=" item">下一页</a>
+                        <a onclick="page(this)" data-page="@{/admin/admins(page=${page.number}-1)}" class=" item" th:unless="${page.first}">上一页</a>
+                        <a onclick="page(this)" data-page="@{/admin/admins(page=${page.number}+1)}"  class=" item" th:unless="${page.last}">下一页</a>
                     </div>
 
                     <a href="" class="ui mini right floated green button">新增</a>

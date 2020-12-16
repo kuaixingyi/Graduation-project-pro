@@ -1,6 +1,7 @@
 package com.kxy.bkd.service;
 
-import com.kxy.bkd.dao.TypeRepository;
+import com.kxy.bkd.dao.TagsRepository;
+import com.kxy.bkd.po.Tag;
 import com.kxy.bkd.po.Type;
 import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
@@ -10,45 +11,37 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
-public class TypeServiceImpl  implements  TypeService{
-
+public class TagsServiceImpl implements TagsService{
 
     @Autowired
-    private TypeRepository typeRepository;
+    private TagsRepository tagsRepository;
 
     @Transactional
     @Override
-    public Type saveType(Type type) {
-        return typeRepository.save(type);
+    public Tag saveTags(Tag tag) {
+        return tagsRepository.save(tag);
     }
-
     @Transactional
     @Override
-    public Type getType(Long id) {
-        return typeRepository.findById(id).get();
+    public Tag getTags(Long id) {
+        return tagsRepository.findById(id).get();
     }
-
 
     @Override
-    public Type getTypeName(String name) {
-        return typeRepository.findByName(name);
+    public Tag getTagsName(String name) {
+        return tagsRepository.findByName(name);
     }
-
     @Transactional
     @Override
-    public Page<Type> listType(Pageable pageable) {
-        return typeRepository.findAll(pageable);
+    public Page<Tag> listTags(Pageable pageable) {
+        return tagsRepository.findAll(pageable);
     }
-
     @Transactional
     @Override
-    public Type updateType(Long id, Type type) {
+    public Tag updateTags(Long id, Tag tag) {
 
-
-        Type type1 = typeRepository.findById(id).get();
+        Tag type1 = tagsRepository.findById(id).get();
         if (type1 == null) {
             try {
                 throw new NotFoundException("不存在该类型");
@@ -56,18 +49,19 @@ public class TypeServiceImpl  implements  TypeService{
                 e.printStackTrace();
             }
         }
-        BeanUtils.copyProperties(type,type1);
+        BeanUtils.copyProperties(tag,type1);
 //        Type a = new Type();
 //        a.setId(type1.get().getId());
 //        a.setBlogs(type1.get().getBlogs());
 //        a.setName(type1.get().getName());
 //        return typeRepository.save(a);
-        return typeRepository.save(type1);
+        return tagsRepository.save(type1);
+
     }
     @Transactional
     @Override
-    public void deleteType(Long id) {
-        typeRepository.deleteById(id);
+    public void deleteTags(Long id) {
+        tagsRepository.deleteById(id);
 
     }
 }
