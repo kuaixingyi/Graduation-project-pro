@@ -1,6 +1,10 @@
 package com.kxy.bkd.po;
 
+import com.sun.istack.NotNull;
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +17,8 @@ public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+//    后端空值校验
+    @NotBlank(message = "分类名称不能为空")
     private String  name;
 
 //    一对多

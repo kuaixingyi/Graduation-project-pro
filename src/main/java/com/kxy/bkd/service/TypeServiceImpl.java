@@ -27,8 +27,13 @@ public class TypeServiceImpl  implements  TypeService{
 
     @Transactional
     @Override
-    public Optional<Type> getType(Long id) {
-        return typeRepository.findById(id);
+    public Type getType(Long id) {
+        return typeRepository.findById(id).get();
+    }
+
+    @Override
+    public Type getTypeName(String name) {
+        return typeRepository.findByName(name);
     }
 
     @Transactional
@@ -41,22 +46,22 @@ public class TypeServiceImpl  implements  TypeService{
     @Override
     public Type updateType(Long id, Type type) {
 
-//
-//        Optional<Type> type1 = typeRepository.findById(id);
-//        if (type1 == null) {
-//            try {
-//                throw new NotFoundException("不存在该类型");
-//            } catch (NotFoundException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        BeanUtils.copyProperties(type,type1);
+
+        Type type1 = typeRepository.findById(id).get();
+        if (type1 == null) {
+            try {
+                throw new NotFoundException("不存在该类型");
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        BeanUtils.copyProperties(type,type1);
 //        Type a = new Type();
 //        a.setId(type1.get().getId());
 //        a.setBlogs(type1.get().getBlogs());
 //        a.setName(type1.get().getName());
 //        return typeRepository.save(a);
-        return typeRepository.save(type);
+        return typeRepository.save(type1);
     }
     @Transactional
     @Override

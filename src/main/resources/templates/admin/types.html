@@ -43,8 +43,8 @@
 <div class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
-            <a href="#" class="item">发布</a>
-            <a href="#" class=" green active item">列表</a>
+            <a href="#" th:href="@{/admin/types/input}" class="item">新增</a>
+            <a href="#" th:href="@{/admin/types}" class=" green active item">列表</a>
         </div>
     </div>
 
@@ -53,6 +53,13 @@
 <div class=" animate__animated animate__bounce m-container-small m-padded-tb-large">
 
     <div class="ui container">
+        <div class="ui mini green  message" th:unless="${#strings.isEmpty(message)}" >
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${message}" >恭喜,操作成功!</p>
+        </div>
+
+
 
         <table class="ui celled table">
             <thead class="">
@@ -74,8 +81,8 @@
             </tbody>
             <tfoot>
             <tr>
-                <th colspan="6">
-                    <div class="ui  mini pagination menu">
+                <th colspan="6" >
+                    <div class="ui  mini pagination menu" th:if="${page.totalPages}>1">
                         <a th:href="@{/admin/types(page=${page.number}-1)}" class=" item" th:unless="${page.first}">上一页</a>
                         <a th:href="@{/admin/types(page=${page.number}+1)}"  class=" item" th:unless="${page.last}">下一页</a>
                     </div>
@@ -160,6 +167,12 @@
         on: 'hover'
     });
 
+    $('.message .close')
+        .on('click',function (){
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
 </script>
 </body>
 </html>
