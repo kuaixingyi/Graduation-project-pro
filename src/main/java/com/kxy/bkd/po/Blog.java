@@ -9,8 +9,11 @@ import java.util.List;
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String title;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String content;
     private String firstPicture;
     private String flag;
@@ -37,17 +40,20 @@ public class Blog {
 //    一对多维护Comment
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
+//  不入库的注解
+    @Transient
+    private String tagIds;
 
 
     public Blog() {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -180,6 +186,37 @@ public class Blog {
         this.comments = comments;
     }
 
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+//tgsid的初始化
+    public void init() {
+        this.tagIds = tagsToIds(this.getTags());
+    }
+
+//  数组转换字符串
+    private String tagsToIds(List<Tag> tags) {
+        if (!tags.isEmpty()) {
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for (Tag tag : tags) {
+                if (flag) {
+                    ids.append(",");
+                } else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        } else {
+            return tagIds;
+        }
+    }
 
     @Override
     public String toString() {

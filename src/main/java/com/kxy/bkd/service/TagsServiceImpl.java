@@ -2,7 +2,6 @@ package com.kxy.bkd.service;
 
 import com.kxy.bkd.dao.TagsRepository;
 import com.kxy.bkd.po.Tag;
-import com.kxy.bkd.po.Type;
 import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TagsServiceImpl implements TagsService{
@@ -37,6 +39,32 @@ public class TagsServiceImpl implements TagsService{
     public Page<Tag> listTags(Pageable pageable) {
         return tagsRepository.findAll(pageable);
     }
+
+    @Override
+    public List<Tag> lisTag() {
+        return tagsRepository.findAll();
+    }
+
+    @Override
+    public List<Tag> lisTag(String ids) { //1,2,3,4这样子的集合
+        return tagsRepository.findAllById(convertToList(ids));
+    }
+
+//    字符串转换LIst里面的方法
+    public List<Long> convertToList(String ids){
+        List<Long> list = new ArrayList<>();
+        if (!"".equals(ids) && ids !=null){
+            String[] idarray = ids.split(",");
+            for (int i=0; i < idarray.length;i++){
+                list.add(new Long(idarray[i]));
+            }
+        }
+        return list;
+
+
+    }
+
+
     @Transactional
     @Override
     public Tag updateTags(Long id, Tag tag) {
