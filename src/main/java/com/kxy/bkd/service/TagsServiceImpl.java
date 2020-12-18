@@ -6,7 +6,9 @@ import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,14 @@ public class TagsServiceImpl implements TagsService{
     @Override
     public List<Tag> lisTag() {
         return tagsRepository.findAll();
+    }
+
+//    前端展示方法实现
+    @Override
+    public List<Tag> lisTagTop(Integer size) {
+        Sort sort = Sort.by(Sort.Order.desc("blogs.size"));
+        Pageable pageable = PageRequest.of(Integer.parseInt (String.valueOf(0)),Integer.parseInt(String.valueOf(size)),sort);
+        return tagsRepository.findTop(pageable);
     }
 
     @Override

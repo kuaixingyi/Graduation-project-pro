@@ -9,7 +9,9 @@ import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 
 //增，删，查，改，分页方法
@@ -69,6 +72,20 @@ public class BlogServiceImpl implements BlogService {
             }
         },pageable);
     }
+
+//    前端展示
+    @Override
+    public Page<Blog> listBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Blog> listRecommendBlogTop(Integer size) {
+        Sort sort = Sort.by(Sort.Order.desc("updateTime"));
+        Pageable pageable = PageRequest.of(Integer.parseInt(String.valueOf(0)),Integer.parseInt(String.valueOf(size)),sort);
+        return blogRepository.findTop(pageable);
+    }
+
 
     @org.springframework.transaction.annotation.Transactional
     @Override

@@ -20,6 +20,8 @@ public interface TagsService {
 
     List <Tag> lisTag();
 
+    List <Tag> lisTagTop(Integer size);
+
     List<Tag> lisTag(String ids);
 
 
