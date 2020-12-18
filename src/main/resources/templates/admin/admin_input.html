@@ -117,6 +117,9 @@
                 </div>
 
             </div>
+            <div class="required field">
+                <textarea name="description" th:text="*{description}" placeholder="消息描述...." maxlength="200"></textarea>
+            </div>
 
             <div class="inline fields">
                 <div class="field">
@@ -287,7 +290,15 @@
                     prompt: '标题：请输入首图'
 
                 }]
-            }
+            },
+            // description: {
+            //     identifier: 'description',
+            //     rules: [{
+            //         type: 'empty',
+            //         prompt: '标题：请输入消息描述'
+            //
+            //     }]
+            // }
         }
     });
 

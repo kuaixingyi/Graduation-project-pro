@@ -3,6 +3,7 @@ package com.kxy.bkd.service;
 import com.kxy.bkd.dao.BlogRepository;
 import com.kxy.bkd.po.Blog;
 import com.kxy.bkd.po.Type;
+import com.kxy.bkd.util.MyBeanUtils;
 import com.kxy.bkd.vo.BlogQuery;
 import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
@@ -73,7 +74,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog saveBlog(Blog blog) {
 //        通过ID 是否为空值判断新增还是修改
-                       if (blog.getId() == null){
+        if (blog.getId() == null){
                     blog.setCreateTime(new Date());
                     blog.setUpdateTime(new Date());
                     blog.setViews(0);
@@ -100,7 +101,8 @@ public class BlogServiceImpl implements BlogService {
             }
 
         }
-        BeanUtils.copyProperties(b, blog);
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
 
         return blogRepository.save(b);
     }

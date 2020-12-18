@@ -44,6 +44,9 @@ public class Blog {
     @Transient
     private String tagIds;
 
+    private String description;
+
+
 
     public Blog() {
     }
@@ -194,7 +197,15 @@ public class Blog {
         this.tagIds = tagIds;
     }
 
-//tgsid的初始化
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    //tgsid的初始化
     public void init() {
         this.tagIds = tagsToIds(this.getTags());
     }
@@ -220,7 +231,7 @@ public class Blog {
 
     @Override
     public String toString() {
-        return "blog{" +
+        return "Blog{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
@@ -234,6 +245,12 @@ public class Blog {
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", type=" + type +
+                ", Tags=" + Tags +
+                ", user=" + user +
+                ", comments=" + comments +
+                ", tagIds='" + tagIds + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
