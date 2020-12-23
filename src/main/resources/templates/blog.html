@@ -43,29 +43,31 @@
 <!--              头部-->
               <div class="ui  horizontal link list">
                   <div class="item">
-                      <img src="https://picsum.photos/id/3/800/400" alt="" class="ui avatar image">
+                      <img src="https://picsum.photos/id/3/800/400" alt="" class="ui avatar image" th:src="@{${blog.user.avatar}}">
                       <div class="content">
-                          <a href="#" class="header">帮帮酱</a>
+                          <a href="#" class="header" th:text="${blog.user.nickname}">帮帮酱</a>
                       </div>
                   </div>
-                  <div class="item"><i class="calendar icon"></i>2020-12-1</div>
-                  <div class="item"><i class="eye icon"></i>2333</div>
+                  <div class="item"><i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}" >2020-12-1</span></div>
+                  <div class="item"><i class="eye icon"></i><span th:text="${blog.views}">2333</span></div>
               </div>
           </div>
           <div class="ui  attached segment">
 <!--              图片区局-->
-              <img src="https://picsum.photos/id/3/800/400" alt="" class="ui fluid rounded image">
+              <img src="https://picsum.photos/id/3/800/400" alt="" class="ui fluid rounded image" th:src="@{${blog.firstPicture}}">
           </div>
           <div class="ui  attached padded segment">
 <!--              内容-->
               <div class="ui right aligned basic segment">
-                  <div class="ui orange basic label">一手</div>
+                  <div class="ui orange basic label" th:text="${blog.flag}">一手</div>
               </div>
 
-              <h2 class="ui center aligned header">马海旭在线求偶！！！</h2>
+              <h2 class="ui center aligned header" th:text="${blog.title}">马海旭在线求偶！！！</h2>
               <br>
 
-              <div id="center" class="typo typo-selection  m-padded-lr m-padded-tb-large js-toc-content">
+<!--              文章内容-->
+
+              <div id="content" class="typo typo-selection  m-padded-lr m-padded-tb-large js-toc-content" th:utext="${blog.content}">
 
                   <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
 <!--                  代码高亮小插件-->
@@ -427,7 +429,7 @@ h5,h6{font-size:1em;}
               </div>
 <!--              标签-->
               <div class="m-padded-lr">
-                  <div class="ui basic teal left pointing label">开黑</div>
+                  <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">开黑</div>
               </div>
 <!--              赞赏-->
               <div class="ui center aligned basic segment">
@@ -437,11 +439,11 @@ h5,h6{font-size:1em;}
                   <div class="ui orange basic label">
                       <div class="ui images" style="font-size: inherit !important;">
                           <div class="image">
-                              <img src="../static/images/m1.jpg" alt="" class="ui rounded bordered image" style="width: 120px">
+                              <img src="../static/images/m1.jpg" th:src="@{/images/m1.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
                               <div class="">联系微信</div>
                           </div>
                           <div class="image">
-                              <img src="../static/images/m2.jpg" alt="" class="ui rounded bordered image" style="width: 120px">
+                              <img src="../static/images/m2.jpg" th:src="@{/images/m2.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
                               <div class="">公众号</div>
                           </div>
                       </div>
@@ -456,90 +458,99 @@ h5,h6{font-size:1em;}
                   <div class="eleven wide column">
 
                       <ui class="list">
-                          <li class="">作者：帮帮酱（联系作者）</li>
-                          <li class="">发表时间：帮帮酱（联系作者）</li>
-                          <li class="">版权声明：帮帮酱（联系作者）</li>
-                          <li class="">公众号转载：啦啦啦（联系作者）</li>
+                          <li class="">作者：<span th:text="${blog.user.nickname}">帮帮酱</span><a href="" th:href="@{/about}" target="_blank">（联系作者）</a></li>
+                          <li class="">发表时间：<span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}"></span></li>
+                          <li class="">版权声明：非商用.非衍生.保持署名</li>
+                          <li class="">公众号转载：请在文末添加作者微信二维码</li>
                       </ui>
 
                   </div>
                   <div class="five wide column">
-                      <img src="../static/images/m1.jpg" alt="" class="ui right floated rounded bordered image" style="width: 110px">
+                      <img src="../static/images/m1.jpg" th:src="@{/images/m1.jpg}" alt="" class="ui right floated rounded bordered image" style="width: 110px">
                   </div>
               </div>
           </div>
-          <div id="comment-container" class="ui  bottom attached segment">
+          <div  class="ui  bottom attached segment">
 <!--              留言-->
-              <div class="ui teal segment">
-                  <div class="ui threaded comments">
-                      <h3 class="ui dividing header">评论区</h3>
-                      <div class="comment">
-                          <a class="avatar">
-                              <img src="https://picsum.photos/id/3/800/400">
-                          </a>
-                          <div class="content">
-                              <a class="author">Matt</a>
-                              <div class="metadata">
-                                  <span class="date">今天下午 5:42</span>
-                              </div>
-                              <div class="text">太赞了！ </div>
-                              <div class="actions">
-                                  <a class="reply">回复</a>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="comment">
-                          <a class="avatar">
-                              <img src="https://picsum.photos/id/3/600/400">
-                          </a>
-                          <div class="content">
-                              <a class="author">Elliot Fu</a>
-                              <div class="metadata">
-                                  <span class="date">昨天上午12:30</span>
-                              </div>
-                              <div class="text">
-                                  <p>這對我的研究是非常有用.謝謝!</p>
-                              </div>
-                              <div class="actions">
-                                  <a class="reply">回复</a>
+              <div id="comment-container" class="ui teal segment">
+                  <div th:fragment="commentList">
+                      <div class="ui threaded comments" style="max-width: 100%;">
+                          <h3 class="ui dividing header">评论区</h3>
+                          <div class="comment" th:each="comment : ${comments}">
+                              <a class="avatar">
+                                  <img src="" th:src="@{${comment.avatar}}">
+                              </a>
+                              <div class="content">
+                                  <a class="author" th:text="${comment.nickname}">Matt</a>
+                                  <div class="metadata">
+                                      <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">今天下午 5:42</span>
+                                  </div>
+                                  <div class="text" th:text="${comment.content}">太赞了！ </div>
+                                  <div class="actions">
+                                      <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}"  onclick="reply(this)">回复</a>
+                                  </div>
                               </div>
                           </div>
-                          <div class="comments">
-                              <div class="comment">
-                                  <a class="avatar">
-                                      <img src="https://picsum.photos/id/3/800/400">
-                                  </a>
-                                  <div class="content">
-                                      <a class="author">Jenny Hess</a>
-                                      <div class="metadata">
-                                          <span class="date">刚刚</span>
-                                      </div>
-                                      <div class="text">艾略特你永远是多么正确 :) </div>
-                                      <div class="actions">
-                                          <a class="reply">回复</a>
+                             <!--/*-->
+                          <div class="comment">
+                              <a class="avatar">
+                                  <img src="https://picsum.photos/id/3/600/400">
+                              </a>
+                              <div class="content">
+                                  <a class="author">Elliot Fu</a>
+                                  <div class="metadata">
+                                      <span class="date">昨天上午12:30</span>
+                                  </div>
+                                  <div class="text">
+                                      <p>這對我的研究是非常有用.謝謝!</p>
+                                  </div>
+                                  <div class="actions">
+                                      <a class="reply" >回复</a>
+                                  </div>
+                              </div>
+                              <div class="comments">
+                                  <div class="comment">
+                                      <a class="avatar">
+                                          <img src="https://picsum.photos/id/3/800/400">
+                                      </a>
+                                      <div class="content">
+                                          <a class="author">Jenny Hess</a>
+                                          <div class="metadata">
+                                              <span class="date">刚刚</span>
+                                          </div>
+                                          <div class="text">艾略特你永远是多么正确 :) </div>
+                                          <div class="actions">
+                                              <a class="reply">回复</a>
+                                          </div>
                                       </div>
                                   </div>
                               </div>
                           </div>
-                      </div>
-                      <div class="comment">
-                          <a class="avatar">
-                              <img src="https://picsum.photos/id/3/800/400">
-                          </a>
-                          <div class="content">
-                              <a class="author">Joe Henderson</a>
-                              <div class="metadata">
-                                  <span class="date">5 天以前</span>
-                              </div>
-                              <div class="text">老兄，这太棒了。非常感谢。 </div>
-                              <div class="actions">
-                                  <a class="reply">回复</a>
+                          <div class="comment">
+
+
+
+                              <a class="avatar">
+                                  <img src="https://picsum.photos/id/3/800/400">
+                              </a>
+                              <div class="content">
+                                  <a class="author">Joe Henderson</a>
+                                  <div class="metadata">
+                                      <span class="date">5 天以前</span>
+                                  </div>
+                                  <div class="text">老兄，这太棒了。非常感谢。 </div>
+                                  <div class="actions">
+                                      <a class="reply">回复</a>
+                                  </div>
                               </div>
                           </div>
+                             <!--*/-->
                       </div>
                   </div>
               </div>
-               <div class="ui right floated form">
+               <div id="comment-form" class="ui  form">
+                   <input type="hidden" name="blog.id" th:value="${blog.id}">
+                   <input type="hidden" name="parentComment.id" value="-1">
                   <div class="field">
                       <textarea name="content" placeholder="请输入评论信息..."></textarea>
                   </div>
@@ -547,17 +558,17 @@ h5,h6{font-size:1em;}
                       <div class="field m-mobile-wide m-margin-bottom-small">
                           <div class="ui  left icon input">
                               <i class="user icon"></i>
-                              <input type="text"name="nickname" placeholder="姓名">
+                              <input type="text" name="nickname" placeholder="姓名">
                           </div>
                       </div>
                       <div class="field m-mobile-wide m-margin-bottom-small">
                           <div class="ui left icon input">
                               <i class="mail icon"></i>
-                              <input type="text"name="nickname" placeholder="联系方式">
+                              <input type="text" name="email" placeholder="联系方式">
                           </div>
                       </div>
                       <div class="field m-mobile-wide m-margin-bottom-small">
-                          <button class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
+                          <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
                       </div>
                   </div>
                </div>
@@ -593,7 +604,7 @@ h5,h6{font-size:1em;}
                         <div class="item">
                             <img src="../static/images/m1.jpg" alt="" class="ui rounded image" >
                         </div>
-                    </div>
+                        联系方式                    </div>
                 </div>
 
                 <div class="three wide column">
@@ -636,7 +647,7 @@ h5,h6{font-size:1em;}
     <script src="../static/lib/waypoints/jquery.waypoints.min.js"></script>
 <!--/*/</th:block>/*/-->
 
-<script>
+<script th:inline="javascript">
     $('.menu.toggle').click(function (){
       $('.m-item').toggleClass('m-mobile-hide');
     });
@@ -668,9 +679,11 @@ h5,h6{font-size:1em;}
         // on :'click',
         position:'left center'
     });
-    //二维码生成
+    //手机访问二维码生成
+    var serurl = "http://www.kuaixingyi.top"
+    var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
     var qrcode = new QRCode("qrcode", {
-        text: "http://jindo.dev.naver.com/collie",
+        text: serurl+url,
         width: 100,
         height: 100,
         colorDark : "#000000",
@@ -694,6 +707,77 @@ h5,h6{font-size:1em;}
            console.log('Scrolled to waypoint!' + direction);
         }
     });
+
+//    评论表单验证
+    $('.ui.form').form({
+        fields: {
+            title: {
+                identifier: 'content',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入评论内容'
+
+                }]
+            },
+            content: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入你的大名'
+
+                }]
+            },
+
+            type: {
+                identifier: 'email',
+                rules: [{
+                    type: 'email',
+                    prompt: '请输入正确邮箱地址'
+
+                }]
+            }
+        },
+    });
+
+    $('#commentpost-btn').click(function (){
+     var boo =  $('.ui.form').form('validate form');
+
+     if (boo){
+         console.log('验证成功');
+         postData();
+     }else {
+         console.log('验证失败');
+     }
+    });
+    //评论提交局部刷新方法
+    function postData() {
+        $("#comment-container").load(/*[[@{/comments}]]*/"",{
+            "parentComment.id" : $("[name='parentComment.id']").val(),
+            "blog.id" : $("[name='blog.id']").val(),
+            "nickname": $("[name='nickname']").val(),
+            "email"   : $("[name='email']").val(),
+            "content" : $("[name='content']").val()
+        },function (responseTxt, statusTxt, xhr) {
+            $(window).scrollTo($('#comment-container'),500);
+            clearContent();
+        });
+    }
+    //清理评论信息
+    function clearContent() {
+        $("[name='nickname']").val('');
+        $("[name='email']").val('');
+        $("[name='content']").val('');
+        $("[name='parentComment.id']").val(-1);
+        $("[name='content']").attr("placeholder", "请输入评论信息...");
+    }
+
+    function reply(obj) {
+        var commentId = $(obj).data('commentid');
+        var commentNickname = $(obj).data('commentnickname');
+        $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
+        $("[name='parentComment.id']").val(commentId);
+        $(window).scrollTo($('#comment-form'),500);
+    }
 </script>
 </body>
 </html>

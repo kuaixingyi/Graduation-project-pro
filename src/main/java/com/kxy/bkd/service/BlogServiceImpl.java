@@ -3,6 +3,7 @@ package com.kxy.bkd.service;
 import com.kxy.bkd.dao.BlogRepository;
 import com.kxy.bkd.po.Blog;
 import com.kxy.bkd.po.Type;
+import com.kxy.bkd.util.MarkdownUtils;
 import com.kxy.bkd.util.MyBeanUtils;
 import com.kxy.bkd.vo.BlogQuery;
 import javassist.NotFoundException;
@@ -38,6 +39,27 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog getBlog(Long id) {
         return blogRepository.findById(id).get();
+    }
+
+//    页面转换Markdown格式方法
+    @Override
+    public Blog getAndConvert(Long id) {
+
+        Blog blog = blogRepository.findById(id).get();
+        if(blog == null){
+            try {
+                throw new NotFoundException("该消息不存在");
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog,b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
     }
 
 
@@ -77,6 +99,12 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Page<Blog> listBlog(Pageable pageable) {
         return blogRepository.findAll(pageable);
+    }
+
+//    搜索接口方法
+    @Override
+    public Page<Blog> listBlog(String query, Pageable pageable) {
+        return blogRepository.findByQuery(query,pageable);
     }
 
     @Override

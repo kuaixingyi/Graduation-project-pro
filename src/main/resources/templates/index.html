@@ -52,8 +52,8 @@
 
                 <!--                中间部位显示部分-->
                 <div class="ui attached segment ">
-                    <div class=" ui padded vertical segment m-padded-tb-big">
-                    <div class="ui middle aligned  mobile reversed stackable grid" th:each="blog : ${page.content}">
+                    <div class=" ui padded vertical segment m-padded-tb-big" th:each="blog : ${page.content}">
+                    <div class="ui middle aligned  mobile reversed stackable grid" >
                         <div class=" eleven wide column">
                             <h3 class="ui header m-text-spacad"><a href="#" class="m-black" th:href="@{/blog/{id}/(id=${blog.id})}" target="_blank" th:text="${blog.title}">马海旭在线求偶！</a></h3>
                             <p class="m-text" th:text="|${blog.description}.......|">常看连续剧bai的人应该对du这些对话非常熟悉，国台zhi语皆适dao用：
@@ -202,8 +202,8 @@
 
                 <div class="three wide column">
                     <h4 class="ui inverted header">最新消息</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item m-text-lined m-text-spacad">小姨子跑路！</a>
+                    <div class="ui inverted link list" th:each="blog : ${recommendBlogs}">
+                        <a href="#" class="item m-text-lined m-text-spacad" th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}" target="_blank">小姨子跑路！</a>
                         <a href="#" class="item m-text-lined m-text-spacad">小姨子跑路！</a>
                         <a href="#" class="item m-text-lined m-text-spacad">小姨子跑路！</a>
                     </div>
