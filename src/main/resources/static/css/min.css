@@ -147,6 +147,11 @@
     color: black !important;
 }
 
+.m-teal {
+    color: #00B5AD !important;
+}
+
+
 /*绝对位子*/
 .m-top-right {
     position: absolute;

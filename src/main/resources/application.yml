@@ -4,5 +4,5 @@ spring:
   profiles:
     active: dev
 
-comment.avatar: ../images/222.jpg
-message.avatar: ../images/222.jpg
+comment.avatar: ../images/avatar.png
+message.avatar: ../images/avatar.png

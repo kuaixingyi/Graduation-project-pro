@@ -1,6 +1,7 @@
 package com.kxy.bkd.web;
 
 import com.kxy.bkd.po.Comment;
+import com.kxy.bkd.po.User;
 import com.kxy.bkd.service.BlogService;
 import com.kxy.bkd.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author ：快兴毅
@@ -39,10 +42,19 @@ public class CommentController {
 
 //    回复评论方法
     @PostMapping("/comments")
-    public String post(Comment comment){
+    public String post(Comment comment, HttpSession session){
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
-        comment.setAvatar(avatar);
+        User user = (User) session.getAttribute("user");
+        if (user != null){
+            comment.setAvatar(user.getAvatar());
+            comment.setAdminComment(true);
+            comment.setNickname(user.getNickname());
+
+        }else {
+            comment.setAvatar(avatar);
+        }
+
         commentService.saveComment(comment);
         return "redirect:/comments/" + blogId ;
     }

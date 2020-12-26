@@ -481,7 +481,10 @@ h5,h6{font-size:1em;}
                                   <img src="" th:src="@{${comment.avatar}}">
                               </a>
                               <div class="content">
-                                  <a class="author" th:text="${comment.nickname}">Matt</a>
+                                  <a class="author" >
+                                      <span th:text="${comment.nickname}">Matt</span>
+                                      <div class="ui mini basic teal left pointing label m-padded-min1" th:if="${comment.adminComment}">管理员</div>
+                                  </a>
                                   <div class="metadata">
                                       <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">今天下午 5:42</span>
                                   </div>
@@ -490,7 +493,29 @@ h5,h6{font-size:1em;}
                                       <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}"  onclick="reply(this)">回复</a>
                                   </div>
                               </div>
+
+                              <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
+                                  <div class="comment" th:each="reply : ${comment.replyComments}">
+                                      <a class="avatar">
+                                          <img src="" th:src="@{${reply.avatar}}">
+                                      </a>
+                                      <div class="content">
+                                          <a class="author" >
+                                              <span th:text="${reply.nickname}">Matt</span>
+                                              <div class="ui mini basic teal left pointing label m-padded-min1" th:if="${reply.adminComment}">管理员</div>
+                                              &nbsp;<span th:text="|@ ${reply.parentComment.nickname}|" class="m-teal">@ Matt</span> </a>
+                                          <div class="metadata">
+                                              <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">今天下午 5:42</span>
+                                          </div>
+                                          <div class="text" th:text="${reply.content}">太赞了！ </div>
+                                          <div class="actions">
+                                              <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}"  onclick="reply(this)">回复</a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                           </div>
+
                              <!--/*-->
                           <div class="comment">
                               <a class="avatar">
@@ -558,13 +583,13 @@ h5,h6{font-size:1em;}
                       <div class="field m-mobile-wide m-margin-bottom-small">
                           <div class="ui  left icon input">
                               <i class="user icon"></i>
-                              <input type="text" name="nickname" placeholder="姓名">
+                              <input type="text" name="nickname" placeholder="姓名" th:value="${session.user}!=null ? ${session.user.nickname}">
                           </div>
                       </div>
                       <div class="field m-mobile-wide m-margin-bottom-small">
                           <div class="ui left icon input">
                               <i class="mail icon"></i>
-                              <input type="text" name="email" placeholder="联系方式">
+                              <input type="text" name="email" placeholder="邮箱" th:value="${session.user}!=null ? ${session.user.email}">
                           </div>
                       </div>
                       <div class="field m-mobile-wide m-margin-bottom-small">
@@ -739,6 +764,12 @@ h5,h6{font-size:1em;}
         },
     });
 
+    $(function (){
+        $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
+    });
+
+
+
     $('#commentpost-btn').click(function (){
      var boo =  $('.ui.form').form('validate form');
 
@@ -758,11 +789,11 @@ h5,h6{font-size:1em;}
             "email"   : $("[name='email']").val(),
             "content" : $("[name='content']").val()
         },function (responseTxt, statusTxt, xhr) {
-            $(window).scrollTo($('#comment-container'),500);
+            // $(window).scrollTo($('#comment-container'),500);
             clearContent();
         });
     }
-    //清理评论信息
+    //清理评论信息(管理员清理有问题)
     function clearContent() {
         $("[name='nickname']").val('');
         $("[name='email']").val('');
