@@ -17,10 +17,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Transient;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
@@ -103,7 +100,20 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findAll(pageable);
     }
 
-//    搜索接口方法
+//    标签页
+    @Override
+    public Page<Blog> listBlog(Long tagId, Pageable pageable) {
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+//        jpa关联查询
+                Join join = root.join("Tags");
+                return cb.equal(join.get("id"),tagId);
+            }
+        }, pageable);
+    }
+
+    //    搜索接口方法
     @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
         return blogRepository.findByQuery(query,pageable);
