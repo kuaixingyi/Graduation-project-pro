@@ -432,27 +432,30 @@ h5,h6{font-size:1em;}
                   <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">开黑</div>
               </div>
 <!--              赞赏-->
-              <div class="ui center aligned basic segment">
-                  <button  id="payButton" class="ui orange basic circular  button">求关注</button>
-              </div>
-              <div class="ui  payQR flowing popup  transition hidden">
-                  <div class="ui orange basic label">
-                      <div class="ui images" style="font-size: inherit !important;">
-                          <div class="image">
-                              <img src="../static/images/m1.jpg" th:src="@{/images/m1.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
-                              <div class="">联系微信</div>
-                          </div>
-                          <div class="image">
-                              <img src="../static/images/m2.jpg" th:src="@{/images/m2.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
-                              <div class="">公众号</div>
+              <div th:if="${blog.appreciation}" >
+                  <div class="ui center aligned basic segment">
+                      <button  id="payButton" class="ui orange basic circular  button">求关注</button>
+                  </div>
+                  <div class="ui  payQR flowing popup  transition hidden">
+                      <div class="ui orange basic label">
+                          <div class="ui images" style="font-size: inherit !important;">
+                              <div class="image">
+                                  <img src="../static/images/m1.jpg" th:src="@{/images/m1.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
+                                  <div class="">联系微信</div>
+                              </div>
+                              <div class="image">
+                                  <img src="../static/images/m2.jpg" th:src="@{/images/m2.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
+                                  <div class="">公众号</div>
+                              </div>
                           </div>
                       </div>
                   </div>
               </div>
 
 
+
           </div>
-          <div class="ui attached positive message">
+          <div class="ui attached positive message" th:if="${blog.shareStatement}">
 <!--              消息信息-->
               <div class="ui  middle aligned grid">
                   <div class="eleven wide column">
@@ -470,7 +473,7 @@ h5,h6{font-size:1em;}
                   </div>
               </div>
           </div>
-          <div  class="ui  bottom attached segment">
+          <div  class="ui  bottom attached segment" th:if="${blog.commentabled}">
 <!--              留言-->
               <div id="comment-container" class="ui teal segment">
                   <div th:fragment="commentList">

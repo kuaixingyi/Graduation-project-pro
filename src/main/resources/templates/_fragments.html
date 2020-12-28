@@ -22,7 +22,7 @@
             <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
             <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="folder open outline icon"></i>分类</a>
             <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
-            <a href="#" th:href="@{/archives/-1}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>归档</a>
+            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>归档</a>
             <a href="#" th:href="@{/about}" class=" m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于帮帮酱</a>
             <div class="right  m-item item m-mobile-hide" >
                 <form action="#" th:action="@{/search}" method="post" target="_blank">
@@ -55,19 +55,23 @@
 
             <div class="three wide column">
                 <h4 class="ui inverted header">最新消息</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item m-text-lined m-text-spacad">小姨子跑路！</a>
-                    <a href="#" class="item m-text-lined m-text-spacad">小姨子跑路！</a>
-                    <a href="#" class="item m-text-lined m-text-spacad">小姨子跑路！</a>
+                <div id="newblog-container">
+                    <div class="ui inverted link list" th:fragment="newblogList">
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-lined m-text-spacad" th:each="blog : ${newblogs}" th:text="${blog.title}">小姨子跑路！</a>
+                        <!--/*-->
+                        <a href="#" class="item m-text-lined m-text-spacad">小姨子跑路！</a>
+                        <a href="#" class="item m-text-lined m-text-spacad">小姨子跑路！</a>
+                        <!--*/-->
+                    </div>
                 </div>
             </div>
 
             <div class="three wide column">
                 <h4 class="ui inverted header">联系我</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item m-text-lined m-text-spacad">Email：2058623672@qq.com</a>
-                    <a href="#" class="item m-text-lined m-text-spacad">QQ：2058623672</a>
-                    <a href="#" class="item m-text-lined m-text-spacad">电话：18593188021</a>
+                    <a href="#" class="item m-text-lined m-text-spacad" >Email：2058623672@qq.com</a>
+                    <a href="#" class="item m-text-lined m-text-spacad" >QQ：2058623672</a>
+                    <a href="#" class="item m-text-lined m-text-spacad" >微信：kuaixingyiA</a>
                 </div>
             </div>
 
@@ -92,6 +96,11 @@
     <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
     <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
     <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+
+    <script>
+    $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+    </script>
+
 </th:block>>
 
 </body>

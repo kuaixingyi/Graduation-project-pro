@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="ui attached segment m-padded-tb-large">
-                <a th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui  basic left pointing  large label m-margin-tb-tiny" th:classappend="${tag.id==activeTagId} ? 'orange'" th:each="tag : ${tags}">
+                <a th:href="@{/tags/{id}(id=${tag.id})}"  class="ui  basic left pointing  large label m-margin-tb-tiny" th:classappend="${tag.id==activeTagId} ? 'orange'" th:each="tag : ${tags}">
                     <span th:text="${tag.name}">开黑</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
                 </a>
 
@@ -91,7 +91,7 @@
                             </div>
                             <div class="row">
                                 <div class="column">
-                                    <a href="" th:href="@{/tags/{id}(id=${tag.id})}" class="ui basic teal left pointing label m-padded-min1 m-text-spacad" th:each="tag : ${blog.tags}" th:text="${tag.name}">开黑</a>
+                                    <a href="" th:href="@{/tags/{id}(id=${tag.id})}" class="ui basic  left pointing label m-padded-min1 m-text-spacad" th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${blog.tags}" th:text="${tag.name}">开黑</a>
                                 </div>
 
                             </div>

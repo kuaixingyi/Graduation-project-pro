@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.Transient;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 
 
 //增，删，查，改，分页方法
@@ -124,6 +121,22 @@ public class BlogServiceImpl implements BlogService {
         Sort sort = Sort.by(Sort.Order.desc("updateTime"));
         Pageable pageable = PageRequest.of(Integer.parseInt(String.valueOf(0)),Integer.parseInt(String.valueOf(size)),sort);
         return blogRepository.findTop(pageable);
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveBlog() {
+
+        List<String> years = blogRepository.findGroupYear();
+        Map<String,List<Blog>> map = new HashMap<>();
+        for (String year : years){
+                map.put(year,blogRepository.findByYear(year));
+        }
+        return map;
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogRepository.count();
     }
 
 
