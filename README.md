@@ -1,2 +1,4 @@
 # pro
-spring-整合前端
+基于Spring Boot + semantic ui框架的帮帮酱设计与实现
+
+
